@@ -1,7 +1,5 @@
-// src/app/page.jsx
-import Head from 'next/head';
+
 import Link from 'next/link';
-import Header from './components/Header'; // Adjust the path if necessary
 
 // Sample data function
 async function getArticles() {
