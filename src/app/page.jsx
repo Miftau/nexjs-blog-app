@@ -1,4 +1,4 @@
-// pages/index.js
+'use client';
 import Head from 'next/head';
 import { useState } from 'react';
 import Link from 'next/link';
