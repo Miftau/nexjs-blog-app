@@ -3,7 +3,51 @@ import Head from 'next/head';
 import { useState } from 'react';
 import Link from 'next/link';
 
-export default function Home({ articles }) {
+// Sample data function
+async function getArticles() {
+  // Simulate an API call
+  return [
+    {
+      id: 1,
+      title: "The Future of Web Development in 2025",
+      excerpt: "Explore the emerging trends and technologies that will shape the future of web development over the next few years.",
+      category: "Technology",
+      date: "Oct 28, 2025",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
+      author: {
+        name: "Sarah Johnson",
+        avatar: "https://randomuser.me/api/portraits/women/44.jpg"
+      }
+    },
+    {
+      id: 2,
+      title: "Mindfulness Practices for Daily Life",
+      excerpt: "Learn simple mindfulness techniques that can be integrated into your daily routine to reduce stress and improve focus.",
+      category: "Lifestyle",
+      date: "Oct 25, 2025",
+      image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+      author: {
+        name: "Michael Chen",
+        avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+      }
+    },
+    {
+      id: 3,
+      title: "Building Sustainable Startups",
+      excerpt: "Key strategies for creating environmentally and socially responsible businesses that thrive in today's market.",
+      category: "Business",
+      date: "Oct 22, 2025",
+      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
+      author: {
+        name: "Emma Rodriguez",
+        avatar: "https://randomuser.me/api/portraits/women/68.jpg"
+      }
+    }
+  ];
+}
+
+export default async function Home() {
+  const articles = await getArticles();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [email, setEmail] = useState('');
@@ -332,52 +376,4 @@ export default function Home({ articles }) {
       </footer>
     </div>
   );
-}
-
-// Sample data for articles
-export async function getStaticProps() {
-  const articles = [
-    {
-      id: 1,
-      title: "The Future of Web Development in 2025",
-      excerpt: "Explore the emerging trends and technologies that will shape the future of web development over the next few years.",
-      category: "Technology",
-      date: "Oct 28, 2025",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
-      author: {
-        name: "Sarah Johnson",
-        avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-      }
-    },
-    {
-      id: 2,
-      title: "Mindfulness Practices for Daily Life",
-      excerpt: "Learn simple mindfulness techniques that can be integrated into your daily routine to reduce stress and improve focus.",
-      category: "Lifestyle",
-      date: "Oct 25, 2025",
-      image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-      author: {
-        name: "Michael Chen",
-        avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-      }
-    },
-    {
-      id: 3,
-      title: "Building Sustainable Startups",
-      excerpt: "Key strategies for creating environmentally and socially responsible businesses that thrive in today's market.",
-      category: "Business",
-      date: "Oct 22, 2025",
-      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-      author: {
-        name: "Emma Rodriguez",
-        avatar: "https://randomuser.me/api/portraits/women/68.jpg"
-      }
-    }
-  ];
-
-  return {
-    props: {
-      articles
-    }
-  };
 }
