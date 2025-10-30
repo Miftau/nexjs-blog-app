@@ -1,7 +1,7 @@
-'use client';
+// src/app/page.jsx
 import Head from 'next/head';
-import { useState } from 'react';
 import Link from 'next/link';
+import Header from './components/Header'; // Adjust the path if necessary
 
 // Sample data function
 async function getArticles() {
@@ -48,19 +48,6 @@ async function getArticles() {
 
 export default async function Home() {
   const articles = await getArticles();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [email, setEmail] = useState('');
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email && email.includes('@')) {
-      alert('Thank you for subscribing to PROGRESS BLOG!');
-      setEmail('');
-    } else {
-      alert('Please enter a valid email address.');
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -70,81 +57,8 @@ export default async function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Header */}
-      <header className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white sticky top-0 z-50 shadow-md">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="bg-cyan-400 p-2 rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-            </div>
-            <h1 className="text-2xl font-serif font-bold">PROGRESS <span className="text-cyan-300">BLOG</span></h1>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link href="/" className="hover:text-cyan-300 transition duration-300">Home</Link>
-            <Link href="/articles" className="hover:text-cyan-300 transition duration-300">Articles</Link>
-            <Link href="/categories" className="hover:text-cyan-300 transition duration-300">Categories</Link>
-            <Link href="/authors" className="hover:text-cyan-300 transition duration-300">Authors</Link>
-            <Link href="/contact" className="hover:text-cyan-300 transition duration-300">Contact</Link>
-          </nav>
-
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:flex bg-indigo-500 bg-opacity-30 rounded-full px-4 py-2 items-center">
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent border-none focus:outline-none text-white placeholder-indigo-200 w-full"
-              />
-              <button className="text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </div>
-
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-white focus:outline-none"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-indigo-700 px-4 py-2">
-            <div className="flex bg-indigo-600 bg-opacity-30 rounded-full px-4 py-2 mb-4">
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent border-none focus:outline-none text-white placeholder-indigo-200 w-full"
-              />
-              <button className="text-white">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </div>
-            <div className="flex flex-col space-y-3 py-2">
-              <Link href="/" className="hover:text-cyan-300 transition duration-300 py-2">Home</Link>
-              <Link href="/articles" className="hover:text-cyan-300 transition duration-300 py-2">Articles</Link>
-              <Link href="/categories" className="hover:text-cyan-300 transition duration-300 py-2">Categories</Link>
-              <Link href="/authors" className="hover:text-cyan-300 transition duration-300 py-2">Authors</Link>
-              <Link href="/contact" className="hover:text-cyan-300 transition duration-300 py-2">Contact</Link>
-            </div>
-          </div>
-        )}
-      </header>
+      {/* Use the existing Header component */}
+      <Header />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-indigo-600 via-purple-700 to-indigo-800 text-white py-20">
@@ -274,11 +188,9 @@ export default async function Home() {
           <p className="text-xl mb-8 opacity-90">
             Subscribe to our newsletter and never miss an update from our blog. Get exclusive content and insights delivered directly to your inbox.
           </p>
-          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+          <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email address"
               required
               className="flex-grow px-6 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-cyan-400"
