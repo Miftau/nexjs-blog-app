@@ -1,51 +1,59 @@
-import { promises as fs } from 'fs'
-import path from 'path'
+// app/api/generate-article/route.js
+import { NextResponse } from "next/server.js";
+import fs from "fs";
+import path from "path";
 
-export async function POST(req) {
+export async function GET(req) {
   try {
-    const topics = [
-      'Artificial Intelligence in Healthcare',
-      'Blockchain and Data Security',
-      'Cloud Computing for Startups',
-      'The Future of Web Development',
-      'Cybersecurity Best Practices 2025',
-      'DevOps Trends and Tools',
-      'The Rise of Edge Computing',
-      'The Impact of 5G on IoT',
-    ]
+    const { searchParams } = new URL(req.url);
+    const topic = searchParams.get("topic");
 
-    const articles = []
-
-    for (const topic of topics) {
-      const apiUrl = `https://www.artikelschreiber.com/api/articleapi.php?q=${encodeURIComponent(
-        topic
-      )}&lang=en&length=medium`
-
-      const res = await fetch(apiUrl)
-      const text = await res.text()
-
-      const slug = topic
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '')
-
-      articles.push({
-        slug,
-        title: topic,
-        content: text,
-        createdAt: new Date().toISOString(),
-      })
+    if (!topic) {
+      return NextResponse.json({ error: "Missing topic parameter" }, { status: 400 });
     }
 
-    // Save all new articles
-    const filePath = path.join(process.cwd(), 'data', 'articles.json')
-    await fs.writeFile(filePath, JSON.stringify(articles, null, 2))
+    const apiUrl = `https://www.artikelschreiber.com/api/articleapi.php?keyword=${encodeURIComponent(topic)}`;
+    const res = await fetch(apiUrl);
+    const article = await res.text();
 
-    return new Response(JSON.stringify({ success: true, count: articles.length }), { status: 200 })
+    const metaDescription = article.slice(0, 160).replace(/\s+/g, " ") + "...";
+    const thumbnailUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(
+      topic + " high quality article thumbnail"
+    )}`;
+
+    // File path to save
+    const filePath = path.join(process.cwd(), "data", "articles.json");
+
+    // Read existing data
+    let existingData = [];
+    if (fs.existsSync(filePath)) {
+      const fileContent = fs.readFileSync(filePath, "utf8");
+      existingData = fileContent ? JSON.parse(fileContent) : [];
+    }
+
+    // Check if article already exists
+    const existingArticle = existingData.find((a) => a.topic === topic);
+    if (!existingArticle) {
+      existingData.push({
+        topic,
+        metaDescription,
+        thumbnailUrl,
+        content: article,
+        createdAt: new Date().toISOString(),
+      });
+
+      fs.writeFileSync(filePath, JSON.stringify(existingData, null, 2));
+    }
+
+    return NextResponse.json({
+      message: "Article generated successfully",
+      topic,
+      metaDescription,
+      thumbnailUrl,
+      content: article,
+    });
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: 'Failed to generate articles', details: error.message }),
-      { status: 500 }
-    )
+    console.error(error);
+    return NextResponse.json({ error: "Failed to generate article" }, { status: 500 });
   }
 }
