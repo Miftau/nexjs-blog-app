@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React, { use } from 'react';
 import Link from 'next/link';
 
 // Simulate fetching articles from a public API
