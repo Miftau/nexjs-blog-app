@@ -11,7 +11,7 @@ export default async function BlogPage() {
       <h1 className="text-3xl font-bold mb-6">Latest AI-Generated Articles</h1>
 
       {articles.length === 0 ? (
-        <p>No articles yet. (Run /api/fetch-articles to generate some.)</p>
+        <p>No articles yet. (Run /api/generate-article to generate some.)</p>
       ) : (
         <div className="grid gap-6">
           {articles.map((a) => (
