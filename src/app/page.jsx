@@ -1,6 +1,6 @@
 import React, { use } from 'react';
 import Link from 'next/link';
-import SliderIndicators from './components/SliderIndicator';
+import HeroSlider from './components/HeroSlider';
 
 // Simulate fetching articles from a public API
 async function getArticles() {
@@ -50,84 +50,7 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-<section className="relative py-20 overflow-hidden">
-  <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-700 to-indigo-800 opacity-90"></div>
-  
-  {/* Slider Container */}
-  <div className="container mx-auto px-4 relative z-10">
-    <div className="slider-container overflow-hidden rounded-xl shadow-2xl">
-      <div className="slider flex transition-transform duration-500 ease-in-out" style={{ width: '300%' }}>
-        {/* Slide 1 */}
-        <div className="slide w-full flex-shrink-0" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
-          <div className="bg-black bg-opacity-50 h-full w-full flex items-center justify-center">
-            <div className="text-center text-white p-6 md:p-10">
-              <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Discover the Latest in Personal Growth & Development</h1>
-              <p className="text-xl max-w-2xl mx-auto mb-10 opacity-90">
-                Join our community of over 50,000 readers who are transforming their lives with actionable insights and inspiring stories.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link href="/blog" className="bg-cyan-500 hover:bg-cyan-400 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:-translate-y-1 shadow-lg">
-                  Explore Articles
-                </Link>
-                <Link href="/subscribe" className="bg-transparent border-2 border-white hover:bg-white hover:text-indigo-700 font-medium py-3 px-8 rounded-full transition duration-300 transform hover:-translate-y-1">
-                  Join Community
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Slide 2 */}
-        <div className="slide w-full flex-shrink-0" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
-          <div className="bg-black bg-opacity-50 h-full w-full flex items-center justify-center">
-            <div className="text-center text-white p-6 md:p-10">
-              <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Master Your Mindset & Achieve Breakthroughs</h1>
-              <p className="text-xl max-w-2xl mx-auto mb-10 opacity-90">
-                Learn evidence-based strategies from top psychologists and thought leaders to overcome obstacles and unlock your potential.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link href="/mindset" className="bg-cyan-500 hover:bg-cyan-400 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:-translate-y-1 shadow-lg">
-                  Explore Mindset Tools
-                </Link>
-                <Link href="/workshops" className="bg-transparent border-2 border-white hover:bg-white hover:text-indigo-700 font-medium py-3 px-8 rounded-full transition duration-300 transform hover:-translate-y-1">
-                  Attend Workshops
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Slide 3 */}
-        <div className="slide w-full flex-shrink-0" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')", backgroundSize: 'cover', backgroundPosition: 'center' }}>
-          <div className="bg-black bg-opacity-50 h-full w-full flex items-center justify-center">
-            <div className="text-center text-white p-6 md:p-10">
-              <h1 className="text-4xl md:text-5xl font-serif font-bold mb-6">Build Habits That Transform Your Life</h1>
-              <p className="text-xl max-w-2xl mx-auto mb-10 opacity-90">
-                Discover science-backed frameworks to create lasting positive change and achieve your most ambitious goals.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link href="/habits" className="bg-cyan-500 hover:bg-cyan-400 text-white font-medium py-3 px-8 rounded-full transition duration-300 transform hover:-translate-y-1 shadow-lg">
-                  Habit Builder Toolkit
-                </Link>
-                <Link href="/success-stories" className="bg-transparent border-2 border-white hover:bg-white hover:text-indigo-700 font-medium py-3 px-8 rounded-full transition duration-300 transform hover:-translate-y-1">
-                  Read Success Stories
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <SliderIndicators 
-      totalSlides={3} 
-      onSlideChange={(index) => {
-        const slider = document.querySelector('.slider');
-        if (slider) slider.style.transform = `translateX(-${index * 100}%)`;
-      }}
-    />
-  </div>
-</section>
+      <HeroSlider />
 
       {/* Featured Articles */}
       <section className="py-16 bg-gray-50">
