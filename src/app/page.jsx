@@ -1,6 +1,6 @@
-"use client";
 import React, { use } from 'react';
 import Link from 'next/link';
+import SliderIndicators from './components/SliderIndicator';
 
 // Simulate fetching articles from a public API
 async function getArticles() {
@@ -119,21 +119,13 @@ export default async function Home() {
         </div>
       </div>
     </div>
-
-    {/* Slider Indicators */}
-    <div className="flex justify-center mt-6 space-x-2">
-      {[0, 1, 2].map((index) => (
-        <button
-          key={index}
-          onClick={() => {
-            const slider = document.querySelector('.slider');
-            if (slider) slider.style.transform = `translateX(-${index * 100}%)`;
-          }}
-          className={`w-3 h-3 rounded-full ${index === 0 ? 'bg-cyan-500' : 'bg-white bg-opacity-50'}`}
-          aria-label={`Go to slide ${index + 1}`}
-        />
-      ))}
-    </div>
+    <SliderIndicators 
+      totalSlides={3} 
+      onSlideChange={(index) => {
+        const slider = document.querySelector('.slider');
+        if (slider) slider.style.transform = `translateX(-${index * 100}%)`;
+      }}
+    />
   </div>
 </section>
 
