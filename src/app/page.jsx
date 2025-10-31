@@ -98,7 +98,7 @@ export default async function Home() {
                           <p className="text-xs text-gray-500">{article.date}</p>
                         </div>
                       </div>
-                      <Link href={`/article/${article.id}`} className="text-indigo-600 hover:text-indigo-800 font-medium">
+                      <Link href={`/blog/${article.id}`} className="text-indigo-600 hover:text-indigo-800 font-medium">
                         Read more
                       </Link>
                     </div>

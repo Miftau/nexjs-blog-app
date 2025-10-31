@@ -55,7 +55,6 @@ export default function HeroSlider() {
 
   return (
     <section className="relative py-20 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-700 to-indigo-800 opacity-90"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="hero-slider-container overflow-hidden rounded-xl shadow-2xl">
