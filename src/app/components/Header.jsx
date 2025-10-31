@@ -13,9 +13,9 @@ export default function Header() {
   const path = usePathname();
   const {theme, setTheme } = useTheme()
 
-
   return (
     <Navbar className='border-b-2'>
+      {/* Logo Section */}
       <Link
         href='/'
         className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
@@ -25,30 +25,37 @@ export default function Header() {
         </span>
         Blog
       </Link>
-      <form>
+      
+      {/* Search Form - Hidden on small screens, shown on large screens */}
+      <form className="hidden lg:flex items-center">
         <TextInput
           type='text'
           placeholder='Search...'
           rightIcon={AiOutlineSearch}
-          className='hidden lg:inline'
+          className='w-full lg:w-64' // Adjust width on larger screens if needed
         />
       </form>
-      <Button className='w-12 h-10 lg:hidden' color='gray' pill>
-        <AiOutlineSearch />
-      </Button>
-      <div className='flex gap-2 md:order-2'>
+      
+      {/* Search Button - Shown only on small screens */}
+      <div className="flex items-center md:order-2">
+        <Button className='w-10 h-10 lg:hidden' color='gray' pill>
+          <AiOutlineSearch />
+        </Button>
+        
+        {/* Theme Toggle Button */}
         <Button
-          className='w-14 h-10'
+          className='w-10 h-10 mx-1' // Consistent size and spacing
           color='gray'
           pill
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         >
-       {theme === 'light' ? <FaSun/> : <FaMoon/>}
+          {theme === 'light' ? <FaSun/> : <FaMoon/>}
         </Button>
 
+        {/* Authentication Buttons/User Menu */}
         <SignedOut>
           <Link href='/sign-in'>
-            <Button gradientDuoTone='purpleToBlue' outline>Sign In</Button>
+            <Button gradientDuoTone='purpleToBlue' outline className='hidden md:inline-flex'>Sign In</Button>
           </Link>   
         </SignedOut>
         
@@ -56,8 +63,11 @@ export default function Header() {
           <UserButton appearance={{baseTheme: theme === 'light' ? light : dark}}/>
         </SignedIn>
         
-        <Navbar.Toggle />
+        {/* Mobile Menu Toggle */}
+        <Navbar.Toggle className="ml-2 md:hidden" /> {/* Add margin on the left for spacing */}
       </div>
+      
+      {/* Mobile Menu Content */}
       <Navbar.Collapse>
         <Link href='/'>
           <Navbar.Link active={path === '/'} as={'div'}>
@@ -74,6 +84,7 @@ export default function Header() {
             Projects
           </Navbar.Link>
         </Link>
+        {/* Add more links as needed */}
       </Navbar.Collapse>
     </Navbar>
   );
